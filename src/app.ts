@@ -5,12 +5,12 @@ import helmet from "helmet";
 import redis from "redis";
 import { infoRouter } from "./routes/infoRoute";
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const redisPort = 6379;
 const app = express();
 
 const redisClient = redis.createClient({
-	host: process.env.REDIS_HOST || "127.0.0.1",
+	host: process.env.REDIS_HOST || "redis",
 	port: 6379
 });
 
@@ -30,7 +30,7 @@ redisClient.on("connect", () => {
 });
 
 redisClient.on("error", (err) => {
-	console.error("Redis error");
+	console.error("Redis error", err);
 });
 
 export {
