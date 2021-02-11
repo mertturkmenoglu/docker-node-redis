@@ -1,0 +1,17 @@
+version: "3"
+services:
+  redis:
+    image: redis
+    networks:
+      - webnet
+  app:
+    container_name: docker-node-redis
+    build: .
+    ports:
+      - "4000:4000"
+    networks:
+      - webnet
+    environment:
+      REDIS_HOST: redis
+networks:
+  webnet:

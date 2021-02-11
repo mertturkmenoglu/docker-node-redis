@@ -8,7 +8,11 @@ import { infoRouter } from "./routes/infoRoute";
 const PORT = 4000;
 const redisPort = 6379;
 const app = express();
-const redisClient = redis.createClient(redisPort);
+
+const redisClient = redis.createClient({
+	host: process.env.REDIS_HOST || "127.0.0.1",
+	port: 6379
+});
 
 app.use(express.json());
 app.use(morgan('[:date[web]] || :method :url  || Status: :status || Response time: :response-time ms'));
@@ -26,7 +30,7 @@ redisClient.on("connect", () => {
 });
 
 redisClient.on("error", (err) => {
-	console.error(err);
+	console.error("Redis error");
 });
 
 export {
