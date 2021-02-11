@@ -10,7 +10,7 @@ const redisPort = 6379;
 const app = express();
 
 const redisClient = redis.createClient({
-	host: process.env.REDIS_HOST || "redis",
+	host: process.env.REDIS_URL || "redis",
 	port: 6379
 });
 
